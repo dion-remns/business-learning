@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Learning Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #4f46e5;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .current-week {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .task-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .task-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-list li:last-child {
+            border-bottom: none;
+        }
+
+        .task-list li::before {
+            content: "•";
+            color: #4f46e5;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .week-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .week-card h3 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: #4f46e5;
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .resource-card h4 {
+            color: #4f46e5;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .resource-card ul {
+            list-style: none;
+        }
+
+        .resource-card li {
+            padding: 5px 0;
+            color: #64748b;
+        }
+
+        .remns-app {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .remns-app h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .remns-app ul {
+            list-style: none;
+        }
+
+        .remns-app li {
+            padding: 8px 0;
+        }
+
+        .remns-app li::before {
+            content: "✓";
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resources {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .today-task {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .today-task h3 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Business Learning Dashboard</h1>
+            <p>Mastering business, mindsets, entrepreneurship, sales, and psychology for REMNS AI</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 Learning Plan Overview</h2>
+                <div class="current-week">
+                    <h3>🎯 Current Week: Week 1 - Entrepreneurial Mindset & Business Fundamentals</h3>
+                    <div class="today-task">
+                        <h3>Today's Learning Task (Day 1)</h3>
+                        <p style="margin-bottom: 10px; font-weight: 600;">Topic: The 5 Core Entrepreneurial Mindsets</p>
+                        <p style="margin-bottom: 15px;">Time commitment: 30 minutes</p>
+                        <ul class="task-list">
+                            <li>Read chapter 1 of "The Lean Startup"</li>
+                            <li>Watch Simon Sinek's "Start with Why" TED Talk</li>
+                            <li>Reflect: Which mindset do you need to develop most?</li>
+                            <li>Apply: How can you apply one mindset to REMNS AI today?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 Weekly Progress</h2>
+                <div class="week-grid">
+                    <div class="week-card">
+                        <h3>Week 1: Entrepreneurial Mindset</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 14%"></div>
+                        </div>
+                        <ul class="task-list">
+                            <li>✅ Day 1: 5 Core Entrepreneurial Mindsets</li>
+                            <li>⏳ Day 2: Business Model Canvas</li>
+                            <li>⏳ Day 3: Customer Avatar</li>
+                            <li>⏳ Day 4: Competitive Analysis</li>
+                            <li>⏳ Day 5: Minimum Viable Offer (MVO)</li>
+                            <li>⏳ Day 6: Implementation</li>
+                            <li>⏳ Day 7: Review</li>
+                        </ul>
+                    </div>
+
+                    <div class="week-card">
+                        <h3>Week 2: Sales Fundamentals</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <ul class="task-list">
+                            <li>⏳ Day 1: The Sales Process</li>
+                            <li>⏳ Day 2: Prospecting Strategies</li>
+                            <li>⏳ Day 3: Cold Outreach</li>
+                            <li>⏳ Day 4: Discovery Calls</li>
+                            <li>⏳ Day 5: Handling Objections</li>
+                            <li>⏳ Day 6: Closing Techniques</li>
+                            <li>⏳ Day 7: Practice</li>
+                        </ul>
+                    </div>
+
+                    <div class="week-card">
+                        <h3>Week 3: Psychological Principles</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <ul class="task-list">
+                            <li>⏳ Day 1: Cognitive Biases</li>
+                            <li>⏳ Day 2: Social Proof</li>
+                            <li>⏳ Day 3: Reciprocity</li>
+                            <li>⏳ Day 4: Authority</li>
+                            <li>⏳ Day 5: Scarcity</li>
+                            <li>⏳ Day 6: Implementation</li>
+                            <li>⏳ Day 7: Review</li>
+                        </ul>
+                    </div>
+
+                    <div class="week-card">
+                        <h3>Week 4: Business Strategy & Growth</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <ul class="task-list">
+                            <li>⏳ Day 1: Go-to-Market Strategy</li>
+                            <li>⏳ Day 2: Customer Acquisition Channels</li>
+                            <li>⏳ Day 3: Retention Strategies</li>
+                            <li>⏳ Day 4: Pricing Strategy</li>
+                            <li>⏳ Day 5: Cash Flow Management</li>
+                            <li>⏳ Day 6: Implementation</li>
+                            <li>⏳ Day 7: Review</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📖 Resources</h2>
+                <div class="resources">
+                    <div class="resource-card">
+                        <h4>📚 Books</h4>
+                        <ul>
+                            <li>The Lean Startup</li>
+                            <li>Predictable Revenue</li>
+                            <li>Influence: The Psychology of Persuasion</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h4>🎧 Podcasts</h4>
+                        <ul>
+                            <li>How I Built This</li>
+                            <li>HubSpot Sales Podcast</li>
+                            <li>The Tim Ferriss Show</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h4>🎓 Courses</h4>
+                        <ul>
+                            <li>HubSpot Academy Sales Certification</li>
+                            <li>Coursera Entrepreneurship Specialization</li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-card">
+                        <h4>👥 Communities</h4>
+                        <ul>
+                            <li>LinkedIn Sales Navigator</li>
+                            <li>Reddit r/Entrepreneur</li>
+                            <li>Facebook B2B Sales Groups</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 REMNS AI Application Notes</h2>
+                <div class="remns-app">
+                    <h3>Value Proposition</h3>
+                    <ul>
+                        <li>Target customer: Financial advisors (FAs)</li>
+                        <li>Problem solved: Time-consuming prospecting and appointment setting</li>
+                        <li>Solution: AI-powered cold calling and lead qualification</li>
+                        <li>Pricing: $3k setup + $300/mo retainer</li>
+                    </ul>
+                    <h3 style="margin-top: 15px;">Daily Application</h3>
+                    <p style="font-style: italic; opacity: 0.9;">Every day, record how you applied your learning to REMNS AI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add dynamic progress updates
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calculate progress for each week
+            const weekCards = document.querySelectorAll('.week-card');
+            weekCards.forEach((card, index) => {
+                const tasks = card.querySelectorAll('.task-list li');
+                const completedTasks = card.querySelectorAll('.task-list li:contains("✅")').length;
+                const progress = (completedTasks / tasks.length) * 100;
+                
+                const progressBar = card.querySelector('.progress');
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                }
+            });
+        });
+
+        // Custom selector for :contains
+        HTMLElement.prototype.contains = function(text) {
+            return this.textContent.includes(text);
+        };
+
+        // Add smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
