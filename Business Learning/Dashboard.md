@@ -11,29 +11,27 @@ This vault is designed to help you master business, mindsets, entrepreneurship, 
 
 ## Current Week: Week 1 - Entrepreneurial Mindset & Business Fundamentals
 
-### Today's Learning Task (Day 1)
-**Topic**: The 5 Core Entrepreneurial Mindsets
+### Today's Learning Task (Day 3)
+**Topic**: Customer Avatar: Defining your ideal financial advisor client
 **Time commitment**: 30 minutes
 
 #### Key Concepts to Learn:
-1. **Growth Mindset**: Believing abilities can be developed through dedication and hard work
-2. **Resilience**: Bouncing back from failures and setbacks
-3. **Resourcefulness**: Finding creative solutions with limited resources
-4. **Curiosity**: Constantly asking questions and seeking new knowledge
-5. **Vision**: Having a clear, compelling picture of the future
+1. **Customer Avatar Definition**: A detailed profile of your ideal customer, including demographic, psychographic, and behavioral characteristics
+2. **Importance**: Helps in tailoring marketing messages, product development, and sales strategies
+3. **B2B Considerations**: For businesses like REMNS AI, focus on decision-makers, pain points, and goals
 
 #### Action Items:
-- [ ] Read chapter 1 of "The Lean Startup"
-- [ ] Watch Simon Sinek's "Start with Why" TED Talk
-- [ ] Reflect: Which mindset do you need to develop most?
-- [ ] Apply: How can you apply one mindset to REMNS AI today?
+- [X] Created a detailed customer avatar for financial advisors
+- [X] Identified key pain points and goals
+- [ ] Validate this customer avatar with existing or potential clients
+- [ ] Use this avatar to refine REMNS AI's marketing messages and sales scripts
 
 ## Weekly Progress
 
 ### Week 1 - Entrepreneurial Mindset & Business Fundamentals
 - [ ] Day 1: 5 Core Entrepreneurial Mindsets
-- [ ] Day 2: Business Model Canvas
-- [ ] Day 3: Customer Avatar
+- [X] Day 2: Business Model Canvas
+- [X] Day 3: Customer Avatar
 - [ ] Day 4: Competitive Analysis
 - [ ] Day 5: Minimum Viable Offer (MVO)
 - [ ] Day 6: Implementation
